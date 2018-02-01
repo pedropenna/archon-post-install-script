@@ -36,7 +36,7 @@ function essentials {
 }
 
 function i3 {
-	install "i3-wm"
+	install "i3-wm i3status"
 }
 
 function curl {
