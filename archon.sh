@@ -1,15 +1,15 @@
 #!/bin/bash
 
-declare -a options=( 
-    "curl" 
-    "emacs" 
-    "essentials" 
-    "fonts" 
-    "gimp" 
-    "i3" 
+declare -a options=(
+    "curl"
+    "emacs"
+    "essentials"
+    "fonts"
+    "gimp"
+    "i3"
     "term"
-    "yaourt" 
-    "zsh" 
+    "yaourt"
+    "zsh"
 )
 
 function show_usage {
@@ -43,12 +43,43 @@ function curl {
 	install "curl wget"
 }
 
+function fasd {
+	install-aur "fasd"
+}
+
 function gimp {
 	install "gimp"
 }
 
+function node {
+	install "npm"
+}
+
+# remap caps lock and stuff
+function xmodmap {
+	install "xorg-xmodmap"
+
+    echo "clear lock
+clear control
+keycode 66 = Control_L
+add control = Control_L Control_R
+pointer = 1 2 3 5 4 7 6 8 9 10 11 12
+" > ~/.Xmodmap
+
+    env xmodmap ~/.Xmodmap
+}
+
+function infinality-replacement {
+    sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
+    sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
+
+    install-aur "fonts-meta-extended-lt"
+}
+
 function emacs {
 	install "emacs"
+
+	(cd ~; git clone https://github.com/syl20bnr/spacemacs.git .emacs.d)
 }
 
 function term {
